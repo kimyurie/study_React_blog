@@ -35,7 +35,6 @@ function App() {
         copy.sort();
         글제목변경(copy);
       }}>가나다순정렬</button>
-      
 
 
       {/* 버튼을 누르면 첫 글 제목이 '여자 코트 추천'으로 바뀌는 기능의 버튼을 만들어봅시다. */}
@@ -64,8 +63,30 @@ function App() {
         <h4>{글제목[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
+
+    {/* 컴포넌트 */}
+      <Modal></Modal> 
     </div>
   );
 }
+
+function Modal(){
+  return (
+     <div className='modal'>
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+     </div>
+  )
+}
+
+// let Modal = () => {return (<div>안농</div>)}
+
+
+
+// 어떤걸 컴포넌트로 만들면 좋을지?
+// 1. 반복적인 html 축약할 때
+// 2. 큰 페이지들
+// 3. 자주 변경되는 것들
 
 export default App;
