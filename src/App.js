@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+/* eslint-disable */
 import './App.css';
 import { useState } from 'react';
 
@@ -8,8 +8,8 @@ function App() {
   // let [글제목2, b] = useState('강남 우동 맛집');
   // let [글제목3, c] = useState('파이썬독학');
 
-  let [글제목, a] = useState(['여자 코트 추천', '강남 우동 맛집', '파이썬독학']);
-
+  let [글제목, 글제목변경] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬독학']);
+  let [따봉, 따봉변경] = useState(0);
 
   // let num = [1,2];
   // let [a, c] = [1,2];
@@ -28,9 +28,33 @@ function App() {
       <div className="black-nav">
         <h4>ReactBlog</h4>
       </div>
+
+{/* 응용문제 : 가나다순 정렬버튼과 기능 만들기 */}
+      <button onClick={() => {
+        let copy = [...글제목];
+        copy.sort();
+        글제목변경(copy);
+      }}>가나다순정렬</button>
+      
+
+
+      {/* 버튼을 누르면 첫 글 제목이 '여자 코트 추천'으로 바뀌는 기능의 버튼을 만들어봅시다. */}
+      <button onClick={() => {
+        // 글제목변경(['여자 코트 추천', '강남 우동 맛집', '파이썬독학']);
+        // 기존 state가 array/object면 독립적 카피본 만들어서 수정해야함 
+        let copy = [...글제목];
+        copy[0] = '여자 코트 추천';
+        글제목변경(copy);
+    }}>글수정</button>
+
+
+
+
       <div className='list'>
-        <h4>{글제목[0]}</h4>
+        <h4>{글제목[0]} <span onClick={()=> {따봉변경(따봉 + 1)}}>👍🏻</span> 
+        {따봉} </h4>
         <p>2월 17일 발행</p>
+
       </div>
       <div className='list'>
         <h4>{글제목[1]}</h4>
