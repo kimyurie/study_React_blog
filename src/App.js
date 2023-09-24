@@ -10,8 +10,21 @@ function App() {
 
   let [글제목, 글제목변경] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬독학']);
   let [따봉, 따봉변경] = useState(0);
+  // let [따봉, 따봉변경] = useState([0, 0, 0]);
+  let [title, setTitle] = useState(0);
+
+
   // 제목 클릭시 모달창 띄우기?
   let [modal, setModal] = useState(false); // 2. ui 현재상태를 state로 저장
+  
+
+// map : 많은 div들을 반복문으로 줄이고 싶은 충동이 들 때
+// 1. 왼쪽 array 자료만큼 내부코드 실행해줌
+// 2. return 오른쪽에 있는 걸 array로 담아줌
+  // [1,2,3].map(function(a){
+  //   return '1231222'
+  // })
+
   
   // let [cnt, setCnt] = useState(0); // 내가 한 거
 
@@ -19,6 +32,8 @@ function App() {
   // 1. html , css 로 미리 디자인
   // 2. ui 현재상태를 state로 저장
   // 3. state에 따라 UI가 어떻게 보일지 조건문 등으로 작성
+
+
 
 
   // let num = [1,2];
@@ -48,7 +63,6 @@ function App() {
         글제목변경(copy);
       }}>가나다순정렬</button>
 
-
       {/* 버튼을 누르면 첫 글 제목이 '여자 코트 추천'으로 바뀌는 기능의 버튼을 만들어봅시다. */}
       <button onClick={() => {
         // 글제목변경(['여자 코트 추천', '강남 우동 맛집', '파이썬독학']);
@@ -61,7 +75,7 @@ function App() {
 
 
 
-      <div className='list'>
+      {/* <div className='list'>
         <h4>{글제목[0]} <span onClick={()=> {따봉변경(따봉 + 1)}}>👍🏻</span> 
         {따봉} </h4>
         <p>2월 17일 발행</p>
@@ -75,22 +89,48 @@ function App() {
         {/* 글제목 클릭시
 지금 state가 true면 setModal(false)
  지금 state가 false면 setModal(true) */}
-        <h4 onClick={() => {setModal(!modal)}}>{글제목[2]}</h4>
+        {/* <h4 onClick={() => {setModal(!modal)}}>{글제목[2]}</h4> */}
            {/* <h4 onClick={() => {
             setCnt(cnt + 1)
-        }}>{글제목[2]}</h4> 내가 짠 거*/} 
-        <p>2월 17일 발행</p>
-      </div>
+        }}>{글제목[2]}</h4>*/} 
+        {/* <p>2월 17일 발행</p> */}
+      {/* </div> */} 
 
-      {/* 오늘의 숙제 :
-글제목 한번 더 누르면 모달창이 닫혀야합니다. 어떻게 코드를 짜면 될까요? */}
-
-      {/* 3. state에 따라 UI가 어떻게 보일지 조건문 등으로 작성 */}
+      {/* 위 코드 map 함수로 줄이기 */}
       {
-        modal == true ? <Modal/> : null
+        글제목.map(function(a, i){ // a는 array안 데이터
+          return (
+          <div className='list' key={i}> 
+          <h4 onClick={()=> {
+            setModal(true);
+            setTitle(i);
+            }}>{글제목[i]} 
+          <span onClick={(e)=> {e.stopPropagation();  // 이벤트 버블링 막음
+            따봉변경(따봉+ 1)}}>👍🏻</span>{따봉} 
+        {/* <span onClick={() => {
+          let copy = [...따봉];
+          copy[i] += 1;
+          따봉변경(copy);
+        }}
+        ></span>{따봉[i]} */}
+          </h4> 
+          <p>2월 17일 발행</p>
+        </div>
+        )
+        })
       }
 
 
+
+
+
+
+
+      {/* 3. state에 따라 UI가 어떻게 보일지 조건문 등으로 작성 */}
+      {
+        modal == true ? <Modal 글제목 = {글제목} 글제목변경 = {글제목변경} title = {title}/> : null
+
+      }
 {/* {
   cnt % 2 == 0 ? null : <Modal/>
 }내가 짠 거 */}
@@ -98,13 +138,19 @@ function App() {
   );
 }
 
+
  // 1. html , css 로 미리 디자인
-function Modal(){
+function Modal(props){
   return (
      <div className='modal'>
-      <h4>제목</h4>
+    <h4>{props.글제목[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={() => {
+        let copy = [...props.글제목];
+        copy[0] = '여자코트 추천';
+        props.글제목변경(copy);
+      }}>글수정</button>
      </div>
   )
 }
