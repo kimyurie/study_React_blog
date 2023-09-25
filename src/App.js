@@ -12,11 +12,11 @@ function App() {
   let [따봉, 따봉변경] = useState(0);
   // let [따봉, 따봉변경] = useState([0, 0, 0]);
   let [title, setTitle] = useState(0);
-
+  let [입력값, 입력값변경] = useState('');
 
   // 제목 클릭시 모달창 띄우기?
   let [modal, setModal] = useState(false); // 2. ui 현재상태를 state로 저장
-  
+
 
 // map : 많은 div들을 반복문으로 줄이고 싶은 충동이 들 때
 // 1. 왼쪽 array 자료만큼 내부코드 실행해줌
@@ -32,7 +32,6 @@ function App() {
   // 1. html , css 로 미리 디자인
   // 2. ui 현재상태를 state로 저장
   // 3. state에 따라 UI가 어떻게 보일지 조건문 등으로 작성
-
 
 
 
@@ -71,8 +70,6 @@ function App() {
         copy[0] = '여자 코트 추천';
         글제목변경(copy);
     }}>글수정</button>
-
-
 
 
       {/* <div className='list'>
@@ -115,15 +112,30 @@ function App() {
         ></span>{따봉[i]} */}
           </h4> 
           <p>2월 17일 발행</p>
+          <button onClick={() => {
+            // 글제목 array 에서 삭제
+            let copy = [...글제목];
+            copy.splice(i,1);
+            글제목변경(copy);
+          }}>삭제</button>
         </div>
         )
         })
       }
 
-
-
-
-
+      <input onChange={(e) => {
+         입력값변경(e.target.value);
+        }}/>
+        {/*  1. input에 뭐 입력하고 발행버튼누르면 블로그에 
+        글이 하나 추가되는 기능을 만들어보십시오. */}
+      <button onClick={() => {
+        // 글제목 array 첫번째 항목에 입력값 추가
+        // array 변경
+        // 기존 state가 array/object면 독립적 카피본 만들어서 수정해야함  
+        let copy = [...글제목];
+        copy.unshift(입력값);
+        글제목변경(copy);
+      }}>글발행</button>
 
 
       {/* 3. state에 따라 UI가 어떻게 보일지 조건문 등으로 작성 */}
@@ -154,6 +166,7 @@ function Modal(props){
      </div>
   )
 }
+
 
 // let Modal = () => {return (<div>안농</div>)}
 
