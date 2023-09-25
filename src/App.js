@@ -1,6 +1,6 @@
 /* eslint-disable */
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
 
@@ -138,15 +138,20 @@ function App() {
       }}>글발행</button>
 
 
+
       {/* 3. state에 따라 UI가 어떻게 보일지 조건문 등으로 작성 */}
       {
         modal == true ? <Modal 글제목 = {글제목} 글제목변경 = {글제목변경} title = {title}/> : null
-
       }
+
+<Modal2/>
+
 {/* {
   cnt % 2 == 0 ? null : <Modal/>
 }내가 짠 거 */}
     </div>
+
+
   );
 }
 
@@ -165,6 +170,30 @@ function Modal(props){
       }}>글수정</button>
      </div>
   )
+}
+
+
+// function 주로 쓰지 class 잘안씀
+class Modal2 extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      name : 'kim',
+      age : 20
+    }
+  }
+
+  render(){
+    return (
+      <div>안녕 { this.state.age }
+        <button onClick={() => {
+          // state 변경
+          this.setState({age : 21})
+        }}>버튼</button>
+      </div>
+    )
+  }
+
 }
 
 
